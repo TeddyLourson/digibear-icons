@@ -1,10 +1,8 @@
 # Update process
 
-1. Save all the icons under icons/{style}
-2. Run `yarn clean-up` to clean up the icons.
-3. Use the generate-json-metadata plugin in figma and save the json file
-under release/{versionNumber}
-4. Move into the release with `cd release/{versionNumber}`
-5. Zip the content with `zip digibear-icons.zip -r ./`
-6. Create a github release with `gh release create v{versionNumber} ./digibear-icons.zip`
-7. Rebuild the other plugins.
+1. Bump up the version in `package.json`
+2. Save all the icons under icons/{style}
+3. Run `yarn clean-up` to clean up the icons.
+4. Run `yarn create-release`
+5. Run `yarn update-git`
+6. Rebuild the other plugins.

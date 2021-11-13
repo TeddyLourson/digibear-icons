@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "clean-up": "node ./bin/clean-up.js"
+    "clean-up": "node ./bin/clean-up.js",
+    "create-release": "cd release/$npm_package_version && zip digibear-icons.zip -r ./ && gh release create v$npm_package_version ./digibear-icons.zip && cd ../..",
+    "update-git": "git add . && git commit -m '$npm_package_version' && git push"
   },
   "devDependencies": {
     "chalk": "^4.1.2",

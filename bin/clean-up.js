@@ -37,12 +37,11 @@ function checkConsistencyAcrossFolders(folders) {
 }
 
 function checkConsistency(refFolder, folder) {
-    const extension = ".svg";
     const refSvgFiles = fs.readdirSync(path.join(paths.ICONS_PATH, refFolder), { withFileTypes: true })
-        .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === extension)
+        .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === constants.EXTENSION)
         .map(dirent => dirent.name);
     const svgFiles = fs.readdirSync(path.join(paths.ICONS_PATH, folder), { withFileTypes: true })
-        .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === extension)
+        .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === constants.EXTENSION)
         .map(dirent => dirent.name);
 
     const diffs1 = _.difference(refSvgFiles, svgFiles);
@@ -61,11 +60,14 @@ function cleanUpSVGs(folders) {
 }
 function cleanUpSVGsForStyle(style, versionReleasePath) {
     console.log(`Cleaning up SVG icons files for style : ${style}`);
-    const svgFiles = fs.readdirSync(path.join(paths.ICONS_PATH, style));
+    const svgFiles = fs.readdirSync(path.join(paths.ICONS_PATH, style), { withFileTypes: true })
+        .filter(dirent => !dirent.isDirectory() && path.extname(dirent.name).toLowerCase() === constants.EXTENSION)
+        .map(dirent => dirent.name);
+
     const cleanedSvgDirPath = path.join(paths.ICONS_PATH, style, style);
     fs.mkdirSync(cleanedSvgDirPath);
     svgFiles.forEach((svgFileName) => {
-        const svgFileNameWithoutExtension = svgFileName.split(".svg")[0];
+        const svgFileNameWithoutExtension = svgFileName.split(constants.EXTENSION)[0];
         const svgFileNameWithSuffix = `${svgFileNameWithoutExtension}-${style.toLowerCase()}.svg`
         const svgFilePath = path.join(paths.ICONS_PATH, style, svgFileName);
         const cleanedSvgFilePath = path.join(cleanedSvgDirPath, svgFileNameWithSuffix);
