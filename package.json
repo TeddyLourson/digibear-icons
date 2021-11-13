@@ -1,0 +1,15 @@
+{
+  "name": "icons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean-up": "node ./bin/clean-up.js"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
+    "svgo": "^2.8.0"
+  }
+}
